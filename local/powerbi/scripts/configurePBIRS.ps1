@@ -1,5 +1,12 @@
 <#
 #>
+param(
+
+    [Parameter(Mandatory = $true)]
+    [string]$sql_server_hostname
+
+)
+
 Write-Verbose "SSRS Config"
 
 function Get-ConfigSet() {
@@ -22,7 +29,7 @@ If (! $configset.IsInitialized) {
     Import-Module -name 'C:\Program Files (x86)\Microsoft SQL Server\150\Tools\PowerShell\Modules\sqlps'
 
     # Establish a connection to the 
-    $conn = New-Object Microsoft.SqlServer.Management.Common.ServerConnection -ArgumentList $env:ComputerName
+    $conn = New-Object Microsoft.SqlServer.Management.Common.ServerConnection -ArgumentList $sql_server_hostname
     $conn.ApplicationName = "SCOB Script"
     $conn.StatementTimeout = 0
     $conn.Connect()
