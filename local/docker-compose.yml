@@ -20,8 +20,8 @@ services:
           #cpus: '0.0001'
           memory: 6048M
     volumes:
-      #- ./powerbi/data:/usr/app/powerbi/data
-      - ./powerbi/tmp/:C:/temp/
+      - C:/temp/:C:/temp/
+      #- ./powerbi/tmp/:C:/temp/
 
 networks:
   default:
