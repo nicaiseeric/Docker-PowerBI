@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+
+  azuresqledge:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    container_name: sqlserver
+    #restart: always
+    env_file: azuresqledge/docker.env
+    ports:
+      - '1433:1433'
+    volumes:
+      - ./azuresqledge/data:/var/opt/mssql
+      - ./azuresqledge/initdb/init_geomkt.sql:/docker-entrypoint-initdb.d/init_geomkt.sql
+      - ./azuresqledge/initdb/init_dwh.sql:/docker-entrypoint-initdb.d/init_dwh.sql
+
+networks:
+  default:
+    name: pbrs_network

@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sqlserver
+    cap_add:
+      - SYS_PTRACE
+    #privileged: true
+    #restart: always
+    env_file: sqlserver/docker.env
+    ports:
+      - '1433:1433'
+    volumes:
+      - ./sqlserver/data:/var/opt/mssql/data
+      - ./sqlserver/initdb/init_geomkt.sql:/docker-entrypoint-initdb.d/init_geomkt.sql
+      - ./sqlserver/initdb/init_dwh.sql:/docker-entrypoint-initdb.d/init_dwh.sql
+
+networks:
+  default:
+    name: pbrs_network

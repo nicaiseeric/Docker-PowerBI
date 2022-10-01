@@ -1,0 +1,29 @@
+version: "3.5"
+services:
+
+  powerbi:
+    image: powerbi:latest
+    container_name: powerbi
+    build:
+      context: ./powerbi
+      dockerfile: Dockerfile
+    platform: windows/amd64
+    env_file: powerbi/docker.env
+    ports:
+      - '80:80'
+    deploy:
+      resources:
+        limits:
+          #cpus: '0.001'
+          memory: 6048M
+        reservations:
+          #cpus: '0.0001'
+          memory: 6048M
+    volumes:
+      #- ./powerbi/data:/usr/app/powerbi/data
+      - ./powerbi/tmp/:C:/temp/
+
+networks:
+  default:
+    name: pbrs_network
+
